@@ -10,7 +10,7 @@ public class DWGraph_DS implements directed_weighted_graph
 {
     private HashMap<Integer, node_data> nodes;
     private int MC;
-
+    private WrapDWGraph_DS temp;
     public DWGraph_DS()
     {
         nodes = new HashMap<Integer, node_data>();
@@ -33,6 +33,7 @@ public class DWGraph_DS implements directed_weighted_graph
                 connect(e.getSrc(),e.getDest(),e.getWeight());
             }
         }
+        MC = g.getMC();
     }
     @Override
     public node_data getNode(int key)
@@ -141,5 +142,55 @@ public class DWGraph_DS implements directed_weighted_graph
         return MC;
     }
 
+    @Override
+    public boolean equals(Object obj)
+    {
+        if(obj instanceof DWGraph_DS)
+        {
+            DWGraph_DS other = (DWGraph_DS) obj;
+            for(node_data node: other.getV())
+            {
+                if(this.getNode(node.getKey())==null) return false;
+                if(!((NodeData)this.getNode(node.getKey())).equals(node)) return false;
 
+            }
+            for(node_data node: getV())
+            {
+                if(other.getNode(node.getKey())==null) return false;
+                if(!((NodeData)other.getNode(node.getKey())).equals(node)) return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void setTemp(WrapDWGraph_DS temp) {
+        this.temp = temp;
+    }
+
+    public class WrapDWGraph_DS
+    {
+        private ArrayList<NodeData.WrapNodeData> Nodes;
+        private ArrayList<EdgeData.WrapEdgeData> Edges;
+        public WrapDWGraph_DS()
+        {
+            Nodes = new ArrayList<NodeData.WrapNodeData>();
+            Edges = new ArrayList<EdgeData.WrapEdgeData>();
+            for(node_data n : getV())
+            {
+                NodeData t = (NodeData) n;
+                NodeData.WrapNodeData t2 = t.new WrapNodeData();
+                Nodes.add(t2);
+                for(edge_data e: getE(n.getKey()))
+                {
+                    EdgeData t3 = (EdgeData)e;
+                    EdgeData.WrapEdgeData t4 = t3.new WrapEdgeData();
+                    Edges.add(t4);
+                }
+            }
+        }
+    }
 }

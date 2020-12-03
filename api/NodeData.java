@@ -16,20 +16,10 @@ public class NodeData implements node_data
     private HashMap<Integer, EdgeData> neighborsedges;
     private static int numofnodes = 0;
 
-
     public NodeData(int key,double weight)
     {
         this(key,0,weight,"",null);
     }
-    public NodeData(int key, int tag, double weight)
-    {
-        this(key,tag,weight,"",null);
-    }
-    public NodeData(int key, int tag,double weight,String info)
-    {
-        this(key,tag,weight,info,null);
-    }
-
     public NodeData(int key, int tag, double weight,String info, GeoLocation location)
     {
         setKey(key);
@@ -251,6 +241,17 @@ public class NodeData implements node_data
             return true;
         }
         return false;
+    }
+    public class WrapNodeData{
+        private int id;
+        private String pos;
+        public WrapNodeData(){
+            id = NodeData.this.key;
+            if (location!=null)
+                pos = location.x()+","+location.y()+","+location.z();
+            else
+                pos="0,0,0";
+    }
     }
 }
 

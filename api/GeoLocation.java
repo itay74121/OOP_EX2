@@ -61,4 +61,5 @@ public class GeoLocation implements geo_location
         else
             return false;
     }
+
 }
