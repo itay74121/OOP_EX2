@@ -1,7 +1,5 @@
 package api;
 
-import org.w3c.dom.Node;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,6 +9,20 @@ public class DWGraph_DS implements directed_weighted_graph
     private HashMap<Integer, node_data> nodes;
     private int MC;
     private WrapDWGraph_DS temp;
+
+    public DWGraph_DS(WrapDWGraph_DS wrapDWGraph_ds)
+    {
+        this();
+        for (NodeData.WrapNodeData wrapNodeData:  wrapDWGraph_ds.Nodes)
+        {
+            addNode(new NodeData(wrapNodeData));
+        }
+        for(EdgeData.WrapEdgeData wrapEdgeData: wrapDWGraph_ds.Edges)
+        {
+            connect(wrapEdgeData.getSrc(),wrapEdgeData.getDest(),wrapEdgeData.getW());
+        }
+    }
+
     public DWGraph_DS()
     {
         nodes = new HashMap<Integer, node_data>();
@@ -28,12 +40,29 @@ public class DWGraph_DS implements directed_weighted_graph
         }
         for(node_data n: g.getV())
         {
-            for(edge_data e: getE(n.getKey()))
+            for(edge_data e: g.getE(n.getKey()))
             {
                 connect(e.getSrc(),e.getDest(),e.getWeight());
             }
         }
         MC = g.getMC();
+    }
+    public DWGraph_DS(DWGraph_DS g, boolean T)
+    {
+        this();
+        if(g==null)
+            return;
+        for(node_data n: g.getV())
+        {
+            addNode(new NodeData(n.getKey(),n.getWeight()));
+        }
+        for(node_data n: g.getV())
+        {
+            for(edge_data e: g.getE(n.getKey()))
+            {
+                connect(e.getDest(),e.getSrc(),e.getWeight());
+            }
+        }
     }
     @Override
     public node_data getNode(int key)
@@ -170,7 +199,23 @@ public class DWGraph_DS implements directed_weighted_graph
     public void setTemp(WrapDWGraph_DS temp) {
         this.temp = temp;
     }
+    public String toString()
+    {
+        String ret="";
+        for (node_data n: getV())
+        {
+            NodeData t1 = (NodeData)n;
+            ret += t1+"[ ";
+            for (edge_data e:getE(n.getKey()))
+            {
+                NodeData t2 = (NodeData) getNode(e.getDest());
+                ret += t2;
+            }
+            ret+="]\n";
 
+        }
+        return ret;
+    }
     public class WrapDWGraph_DS
     {
         private ArrayList<NodeData.WrapNodeData> Nodes;

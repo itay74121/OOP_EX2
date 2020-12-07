@@ -1,11 +1,11 @@
 package api;
 
-import org.w3c.dom.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
-public class NodeData implements node_data
+
+import java.util.*;
+
+public class NodeData implements node_data,Comparator<NodeData>
 {
     private int key;
     private int tag;
@@ -16,6 +16,22 @@ public class NodeData implements node_data
     private HashMap<Integer, EdgeData> neighborsedges;
     private static int numofnodes = 0;
 
+    public NodeData(WrapNodeData wrapNodeData)
+    {
+        if(wrapNodeData==null)
+            return;
+        neighbors = new HashMap<Integer, NodeData>();
+        neighborsedges = new HashMap<Integer, EdgeData>();
+        this.key = wrapNodeData.id;
+        String positions [] = wrapNodeData.pos.split(",");
+        if(positions.length!=3)
+            return;
+        location = new GeoLocation(Double.parseDouble(positions[0]),Double.parseDouble(positions[1]),Double.parseDouble(positions[2]));
+        setInfo("");
+        setTag(0);
+        setWeight(0);
+        numofnodes++;
+    }
     public NodeData(int key,double weight)
     {
         this(key,0,weight,"",null);
@@ -224,6 +240,12 @@ public class NodeData implements node_data
     }
 
     @Override
+    public int compare(NodeData o1, NodeData o2)
+    {
+        return Double.compare(o1.getWeight(),o2.getWeight());
+    }
+
+    @Override
     public boolean equals(Object obj) {
         if(obj instanceof NodeData)
         {
@@ -241,6 +263,10 @@ public class NodeData implements node_data
             return true;
         }
         return false;
+    }
+    public String toString()
+    {
+        return "[Node "+getKey()+"]";
     }
     public class WrapNodeData{
         private int id;

@@ -7,6 +7,7 @@ public class EdgeData implements edge_data {
     private int tag;
     private String info;
 
+
     public EdgeData(int src,int dest,double weight)
     {
         this(src,dest,weight,0,"");
@@ -93,6 +94,18 @@ public class EdgeData implements edge_data {
             this.src = EdgeData.this.src;
             this.w = weight;
             this.dest = EdgeData.this.dest;
+        }
+
+        public int getSrc() {
+            return src;
+        }
+
+        public double getW() {
+            return w;
+        }
+
+        public int getDest() {
+            return dest;
         }
     }
 
