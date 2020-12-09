@@ -81,6 +81,7 @@ public class MyPanel extends JPanel
                 }
                 geo_location l1 = t.world2frame(p.getLocation());
                 g.fillOval((int)l1.x()-10,(int)l1.y()-10,20,20);
+                g.drawString(p.getValue()+"",(int)l1.x(),(int)l1.y()-15);
             }
         }
         if (agents!=null)

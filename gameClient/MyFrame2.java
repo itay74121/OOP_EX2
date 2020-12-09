@@ -25,10 +25,13 @@ public class MyFrame2 extends JFrame implements Runnable
     private String graph_json;
     private String pokemons_json;
     private String agents_json;
+
+
     public MyFrame2(double fractionX,double fractionY)
     {
         super();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(true);
         screen_size = Toolkit.getDefaultToolkit().getScreenSize();
         setFractionX(fractionX);
         setFractionY(fractionY);
@@ -80,7 +83,9 @@ public class MyFrame2 extends JFrame implements Runnable
                     JSONArray Agentarray = (JSONArray) (new JSONObject(jagent)).get("Agents");
                     for (int i = 0; i < Agentarray.length(); i++)
                     {
-                        arr.add(CL_Agent.fromjsontoCLAgent((JSONObject) Agentarray.get(i), graph_ds));
+                        CL_Agent agent = new CL_Agent(graph_ds,0);
+                        agent.update(Agentarray.get(i).toString());
+                        arr.add(agent);
                     }
                     agents = arr;
                 }
@@ -99,12 +104,7 @@ public class MyFrame2 extends JFrame implements Runnable
     }
     public void run()
     {
-        panel.setVisible(true);
         setVisible(true);
-        while (true)
-        {
-            repaint();
-        }
     }
 
     public double getFractionX() {
