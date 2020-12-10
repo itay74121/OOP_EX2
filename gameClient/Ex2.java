@@ -23,23 +23,29 @@ public class Ex2
 
         game_service g  = Game_Server_Ex2.getServer(1);
         g.addAgent(9);
-        g.addAgent(1);
-        g.addAgent(2);
+        g.startGame();
         Ex2 o = new Ex2();
-
+        int c = 0;
         o.init();
-        while(o.framethread.isAlive())
+        while(g.isRunning())
         {
-            try
-            {
-                Thread.sleep(500);
-                o.myFrame.updateFrame(g.getGraph(),g.getPokemons(),g.getAgents());
+
+//                c++;
+//                if(c%10==0)
+//                {
+//                    g.move();
+//                    c=0;
+//                }
+                //Thread.sleep(10);
+                c++;
+                if(c%2==0)
+                    g.chooseNextEdge(0,8);
+                else
+                    g.chooseNextEdge(0,9);
+
+                o.myFrame.updateFrame(g.getGraph(),g.getPokemons(),g.move());
                 o.myFrame.repaint();
-            }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
+
         }
 
     }
