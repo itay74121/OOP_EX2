@@ -21,8 +21,9 @@
 
 *.iml
 META-INF
-
-
+.gitignore
+Ex2.iml
+.idea
 hs_err_pid*
 
 
