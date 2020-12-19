@@ -18,6 +18,7 @@ public class Ex2
 
     public static void main(String [] args)
     {
+        String log="";
         SharedLevelBuffer a=null;
         boolean flag = false;
         if (args.length==2)
@@ -35,7 +36,7 @@ public class Ex2
             }
             else
             {
-                o.init();
+                o.init(log);
             }
             game_service g = Game_Server_Ex2.getServer(o.sharedLevelBuffer.level);// get level that the user wanted
             //g.login(Long.parseLong(o.sharedLevelBuffer.id));
@@ -65,6 +66,7 @@ public class Ex2
                 // update the frame with the new information and repaint it
                 o.myFrame.updateFrame(g.getGraph(), g.getPokemons(), o.a.getAgents(), o.game.timeToEnd());
                 o.myFrame.repaint();
+                o.myFrame.setLog(log);
                 try {
                     Thread.sleep(1000/40); // updating frame 60 times a second
                 }
@@ -72,6 +74,8 @@ public class Ex2
                     e.printStackTrace();
                 }
             }
+            log += "Score: "+o.a.sum()+"  "+ g.toString()+"\n";
+            o.myFrame.setLog(log);
             try { // joining threads since program ended
                 t.join();
                 o.framethread.join(); // join frame thread
@@ -85,10 +89,11 @@ public class Ex2
     /**
      * This function init the the different screens
      */
-    public  void init()
+    public  void init(String log)
     {
         this.sharedLevelBuffer = new SharedLevelBuffer(); // create a shared buffer
         this.loginFrame = new LoginFrame(0.5,0.5,this.sharedLevelBuffer); // create a login frame
+        this.loginFrame.setLog(log);
         this.myFrame = new MyFrame(0.5,0.5); // create a game frame
         this.loginframethread = new Thread(loginFrame); // create a thread for login frame
         this.framethread = new Thread(this.myFrame); // create a thread for game frame

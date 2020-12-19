@@ -8,15 +8,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFrame extends JFrame implements Runnable
+public class MyFrame extends JFrame implements Runnable,ActionListener
 {
     private MyPanel panel;
     private DWGraph_DS graph_ds;
@@ -27,10 +29,13 @@ public class MyFrame extends JFrame implements Runnable
     private double fractionY;
     private String graph_json;
     private String pokemons_json;
-    private String agents_json;
     private JButton gobackbutton;
     private game_service game;
-
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenuItem saveItem;
+    private JMenuItem exitItem;
+    private String log;
 
     public MyFrame(double fractionX,double fractionY)
     {
@@ -48,7 +53,36 @@ public class MyFrame extends JFrame implements Runnable
         // set defaults for all of this
         graph_json = "";
         pokemons_json = "";
-        agents_json = "";
+        //create menu bar
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        saveItem = new JMenuItem("save");
+        exitItem = new JMenuItem("exit");
+
+        JButton helpbutton = new JButton("Help");
+        helpbutton.setBackground(Color.white);
+        helpbutton.setBorder(null);
+
+        fileMenu.add(saveItem);
+        fileMenu.add(exitItem);
+
+        helpbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"If you want to terminate the game and go back to login\n screen press the goback button on the upper right corner");
+            }
+        });
+        saveItem.addActionListener(this);
+        exitItem.addActionListener(this);
+
+        //helpMenu.setMnemonic(KeyEvent.VK_H); // h for help
+        saveItem.setMnemonic(KeyEvent.VK_S); // s for save
+        exitItem.setMnemonic(KeyEvent.VK_E); // e for exit
+        menuBar.add(fileMenu);
+        //menuBar.add(helpMenu);
+        menuBar.add(helpbutton);
+        this.setJMenuBar(menuBar);
+
         // create a go back button
         gobackbutton = new JButton("Go Back");
         gobackbutton.setBounds(this.getWidth()-100,0,100,30);// set the bounds of the button
@@ -165,5 +199,52 @@ public class MyFrame extends JFrame implements Runnable
     {
         this.game = g;
         setTitle(g.toString());
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == saveItem)
+        {
+            if(game.isRunning())
+            {
+                JOptionPane.showMessageDialog(null,"Cannot save score until\n the game has ended ");
+                return;
+            }
+            FileDialog fileDialog = new FileDialog(this,"Choose file to save to");
+            fileDialog.setDirectory(".");
+            fileDialog.setVisible(true);
+            if (fileDialog.getFile()==null)
+                return;
+            File f = new File(fileDialog.getFile());
+            fileDialog.setVisible(false);
+            if(!f.exists())
+            {
+                try {
+                    f.createNewFile();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            try {
+                FileWriter fileWriter = new FileWriter(f);
+                fileWriter.write(getLog());
+                fileWriter.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        if (e.getSource() == exitItem)
+        {
+            System.exit(0);
+        }
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
     }
 }

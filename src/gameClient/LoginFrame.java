@@ -4,6 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -24,6 +28,11 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
     private Ex2.SharedLevelBuffer sharedLevelBuffer; // shared level buffer
     private Lock lockscreen;
     public Condition condition;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenuItem saveItem;
+    private JMenuItem exitItem;
+    private String log;
 
     public LoginFrame(double X,double Y,Ex2.SharedLevelBuffer sharedLevelBuffer) {
         super();
@@ -72,6 +81,36 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
         messagebox.setFont(f);
         messagebox.setForeground(Color.RED);
          // add all of the components to the frame
+        //create menu bar
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        saveItem = new JMenuItem("save");
+        exitItem = new JMenuItem("exit");
+
+        JButton helpbutton = new JButton("Help");
+        helpbutton.setBackground(Color.white);
+        helpbutton.setBorder(null);
+
+        fileMenu.add(saveItem);
+        fileMenu.add(exitItem);
+
+        helpbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,"Enter the id in the id field and the level you want\n there are 24 levels 0 to 23. Press the login button to play the game\n");
+            }
+        });
+        saveItem.addActionListener(this);
+        exitItem.addActionListener(this);
+
+        //helpMenu.setMnemonic(KeyEvent.VK_H); // h for help
+        saveItem.setMnemonic(KeyEvent.VK_S); // s for save
+        exitItem.setMnemonic(KeyEvent.VK_E); // e for exit
+        menuBar.add(fileMenu);
+        //menuBar.add(helpMenu);
+        menuBar.add(helpbutton);
+        this.setJMenuBar(menuBar);
+
         add(textArea_id);
         add(textArea_level);
         add(label_id);
@@ -133,6 +172,43 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
             this.condition.signal();
             this.lockscreen.unlock();
         }
+        if (e.getSource() == saveItem)
+        {
+            FileDialog fileDialog = new FileDialog(this,"Choose file to save to");
+            fileDialog.setDirectory(".");
+            fileDialog.setVisible(true);
+            if (fileDialog.getFile()==null)
+                return;
+            File f = new File(fileDialog.getFile());
+            fileDialog.setVisible(false);
+            if(!f.exists())
+            {
+                try {
+                    f.createNewFile();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+            try {
+                FileWriter fileWriter = new FileWriter(f);
+                fileWriter.write(getLog());
+                fileWriter.close();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
+        if (e.getSource() == exitItem)
+        {
+            System.exit(0);
+        }
 
+    }
+
+    public String getLog() {
+        return log;
+    }
+
+    public void setLog(String log) {
+        this.log = log;
     }
 }

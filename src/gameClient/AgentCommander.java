@@ -137,7 +137,13 @@ public class AgentCommander implements  Runnable {
     {
         return pokemons;
     }
-
+    public int sum()
+    {
+        int s = 0;
+        for(CL_Agent a:agents)
+            s+=a.getValue();
+        return s;
+    }
     public ArrayList<CL_Agent> getAgents()
     {
         return this.agents;
