@@ -7,6 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
+/**
+ * This class represents a set of algorithms on a graph which is given to it as an input.
+ */
 public class DWGraph_Algo implements dw_graph_algorithms {
     private DWGraph_DS g; //  A graph  object
 
@@ -20,7 +23,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * Constructor taking a graph object
-     * @param g
+     * @param g graph object
      */
     public DWGraph_Algo(directed_weighted_graph g)
     {
@@ -29,7 +32,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * setter to g field
-     * @param g
+     * @param g graph
      */
     @Override
     public void init(directed_weighted_graph g)
@@ -39,7 +42,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * get the graph
-     * @return
+     * @return the graph
      */
     @Override
     public directed_weighted_graph getGraph()
@@ -49,7 +52,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * create a deep copy of g
-     * @return
+     * @return deep copy of the graph
      */
     @Override
     public directed_weighted_graph copy()
@@ -60,7 +63,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     /**
      * Function to determine if g graph is connected.
      * using the dfs algorithm on the graph and it's Transpose.
-     * @return
+     * @return true if the graph is connected
      */
     @Override
     public boolean isConnected()
@@ -100,8 +103,8 @@ public class DWGraph_Algo implements dw_graph_algorithms {
 
     /**
      * DFS algorithm using recursion since it's simpler to write.
-     * @param g
-     * @param v
+     * @param g graph
+     * @param v a node
      */
     private void  dfs(DWGraph_DS g,node_data v)
     {
@@ -119,7 +122,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
      * Calculate shortest path distance
      * @param src - start node
      * @param dest - end (target) node
-     * @return
+     * @return number of the least cost
      */
     @Override
     public double shortestPathDist(int src, int dest)
@@ -162,7 +165,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
      * Find the shortest path between nodes in the graph
      * @param src - start node
      * @param dest - end (target) node
-     * @return
+     * @return list of nodes as path
      */
     @Override
     public List<node_data> shortestPath(int src, int dest) {
@@ -220,7 +223,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     /**
      * Save the graph G in json form
      * @param file - the file name (may include a relative path).
-     * @return
+     * @return true if saved successfully
      */
     @Override
     public boolean save(String file) {
@@ -255,7 +258,7 @@ public class DWGraph_Algo implements dw_graph_algorithms {
     /**
      * Load graph object from json file
      * @param file - file name of JSON file
-     * @return
+     * @return true if loaded successfully
      */
     @Override
     public boolean load(String file) {

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * This class Represents an agent and everything that an agent needs
+ */
 public class CL_Agent  implements Runnable
 {
 	public static final double EPS = 0.0001;
@@ -29,8 +32,8 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * constructor for agent that gets graph and starting node
-	 * @param g
-	 * @param start_node
+	 * @param g graph
+	 * @param start_node starting node
 	 */
 	public CL_Agent(directed_weighted_graph g, int start_node) {
 		graph = g;
@@ -43,12 +46,12 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * constructor that getting graph, id for agent, value, speed, location, and start node
-	 * @param g
-	 * @param id
-	 * @param src_node
-	 * @param value
-	 * @param speed
-	 * @param pos
+	 * @param g graph
+	 * @param id id of agent
+	 * @param src_node src of key
+	 * @param value value of src
+	 * @param speed speed of that agent
+	 * @param pos location of that agent
 	 */
 	public CL_Agent(directed_weighted_graph g, int id,int src_node, double value, double speed, geo_location pos)
 	{
@@ -62,7 +65,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * updating agent information using json format
-	 * @param json
+	 * @param json json string to update
 	 */
 	public void update(String json) {
 		JSONObject line;
@@ -92,6 +95,9 @@ public class CL_Agent  implements Runnable
 		}
 	}
 
+	/**
+	 * @return info about agent
+	 */
 	public ArrayList<String> get_info()
 	{
 		ArrayList<String> result = new ArrayList<String>();
@@ -105,7 +111,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * getting the nose you are standing on
-	 * @return
+	 * @return the key of source node
 	 */
 	public int getSrcNode() {
 		return this.currNode.getKey();
@@ -113,7 +119,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * Conbert agent into json
-	 * @return
+	 * @return string representation in json
 	 */
 	public String toJSON() {
 		int d = this.getNextNode();
@@ -131,7 +137,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * setting agents value
-	 * @param v
+	 * @param v value of money to set
 	 */
 	private void setMoney(double v)
 	{
@@ -140,7 +146,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * setting agents current node
-	 * @param src
+	 * @param src key of src
 	 */
 	public void setCurrNode(int src) {
 		if (graph.getNode(src)==null)
@@ -157,7 +163,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning agents id
-	 * @return
+	 * @return the id
 	 */
 	public int getID() {
 		return this.id;
@@ -165,7 +171,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning agents geolocation
-	 * @return
+	 * @return the location of that agent
 	 */
 	public geo_location getLocation() {
 		return pos;
@@ -173,7 +179,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning the value
-	 * @return
+	 * @return the value of that agent
 	 */
 	public double getValue() {
 		return this.value;
@@ -181,7 +187,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning the dest node of the edge the agent standing on
-	 * @return
+	 * @return if a next node exist
 	 */
 	public int getNextNode() {
 		int ans = -2;
@@ -195,7 +201,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning agents speed
-	 * @return
+	 * @return the speed of the agent
 	 */
 	public double getSpeed() {
 		return this.speed;
@@ -203,7 +209,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * setting agents speed
-	 * @param v
+	 * @param v set the speed of that agent
 	 */
 	public void setSpeed(double v) {
 		this.speed = v;
@@ -211,7 +217,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning the pokemon that this agent following right now
-	 * @return
+	 * @return  the fruit of this agent
 	 */
 	public CL_Pokemon getCurrFruit() {
 		return currFruit;
@@ -219,7 +225,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * setting the pokemon that the agent will start to follow
-	 * @param curr_fruit
+	 * @param curr_fruit the fruit of that agent
 	 */
 	public void setCurrFruit(CL_Pokemon curr_fruit) {
 		this.currFruit = curr_fruit;
@@ -227,11 +233,15 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning the edge the agent standing on
-	 * @return
+	 * @return the vurrent edge that agent is on
 	 */
 	public edge_data getCurrEdge() {
 		return this.currEdge;
 	}
+
+	/**
+	 * @param sgDt no idea
+	 */
 	public void setSgDt(long sgDt) {
 		this.sgDt = sgDt;
 	}
@@ -253,13 +263,13 @@ public class CL_Agent  implements Runnable
 		}
 		while(gameservice.isRunning()) // loop while game is running
 		{
-			if(this.currFruit==null||path==null) // if the agent dont follow any pokemon or he hasnt a path
+			if(path==null||path.size()==0) // if the agent dont follow any pokemon or he hasnt a path
 			{
 				while (dest!=-1&&gameservice.isRunning())// while the agent travel om the edge wait
 				{
 					try
 					{
-						Thread.sleep(1); // sleep for 1 millisecond
+						Thread.sleep(2); // sleep for 1 millisecond
 					}
 					catch (InterruptedException e)
 					{
@@ -269,7 +279,7 @@ public class CL_Agent  implements Runnable
 				try {
 					updatePriority(gameservice.getPokemons()); // updating the array with the best Pokemon's to get
 				} catch(Exception e){
-
+					System.out.println("happened");
 				}
 				//System.out.println(id+" "+Priority_Pokemon's);
 				if(Priority_pokemons.size()==0) // if there the array is empty that means there is no more Pokemon's and the agent will not do anything
@@ -285,55 +295,41 @@ public class CL_Agent  implements Runnable
 					if (path.size() >= 1) // delete the node that the agent already was on it
 						path.remove(0);
 					path.add(graph.getNode(pokemon.get_edge().getDest())); // add last node to move to
+					//System.out.println(path);
 				}
 			}
-			if (path!=null) // if there is a path
+			if (path!=null&&currFruit!=null) // if there is a path
 			{
 				while (-1!=dest&&gameservice.isRunning()) // while agent is traveling on the edge
 				{
 					try {
-						Thread.sleep(1);
+						Thread.sleep(2);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 
 				}
-				if (path.size()==0) // if the path is empty stop the agent
-				{
-					setCurrFruit(null);
-					path=null;
-				}
-				else //set the next node in the path that the agent need to go to
+				if(path.size()!=0) //set the next node in the path that the agent need to go to
 				{
 					node_data next = path.remove(0); // take next stop
 					gameservice.chooseNextEdge(this.id, next.getKey()); // tell server to move agent to there
 				}
 			}
-			else
-			{
-				setCurrFruit(null);
-			}
-
 		}
 	}
 
 	/**
 	 * setting game service
-	 * @param g
+	 * @param g graph
 	 */
 	public void setGameService(game_service g)
 	{
 		this.gameservice = g;
 	}
 
-	public void signalStop()
-	{
-		this.confirmmoving = false;
-	}
-
 	/**
 	 * setting agents commander (there is only 1 so its starting the commander)
-	 * @param commander
+	 * @param commander commander object
 	 */
 	public void setCommander(AgentCommander commander) {
 		this.commander = commander;
@@ -341,7 +337,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * updating the array list that sorting the pokemons, the first pokemon is the best to go to and the last pokemon is the worse
-	 * @param pokemons
+	 * @param pokemons json of pokemons
 	 */
 	public void updatePriority(String pokemons)
 	{
@@ -359,7 +355,7 @@ public class CL_Agent  implements Runnable
 			 * comparing 2 pokemons to sort them
 			 */
 			public int compare(CL_Pokemon o1, CL_Pokemon o2) {
-				return Double.compare(o1.getMin_dist(),o2.getMin_dist());
+				return Double.compare(o2.getValue()/o2.getMin_dist(),o1.getValue()/o1.getMin_dist());
 			}
 		});
 		for (CL_Pokemon p:arr) // add Pokemon's into array list
@@ -370,7 +366,7 @@ public class CL_Agent  implements Runnable
 
 	/**
 	 * returning the destination
-	 * @return
+	 * @return the destination
 	 */
 	public int getDest()
 	{
@@ -380,6 +376,8 @@ public class CL_Agent  implements Runnable
 	@Override
 	/**
 	 * returning true if the object is equal to agent
+	 * @param a object to test equality
+	 * @return true if equal false otherwise
 	 */
 	public boolean equals(Object a){
 		if(a instanceof CL_Agent) {

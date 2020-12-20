@@ -4,6 +4,9 @@ import api.edge_data;
 import gameClient.util.Point3D;
 import org.json.JSONObject;
 
+/**
+ * Logical class that represents a Pokemon and every detail about a pokemon
+ */
 public class CL_Pokemon {
 	private edge_data _edge;
 	private double _value;
@@ -13,11 +16,11 @@ public class CL_Pokemon {
 
 	/**
 	 * pokemon constructor
-	 * @param p
-	 * @param t
-	 * @param v
+	 * @param p point
+	 * @param t type of pokemon
+	 * @param v value of pokemon
 	 * @param s
-	 * @param e
+	 * @param e edge of pokemon
 	 */
 
 	public CL_Pokemon(Point3D p, int t, double v, double s, edge_data e) {
@@ -30,7 +33,7 @@ public class CL_Pokemon {
 
 	/**
 	 * create pokemon from json
-	 * @param json
+	 * @param json json of pokemon
 	 * @return
 	 */
 	public static CL_Pokemon init_from_json(String json) {
@@ -45,10 +48,15 @@ public class CL_Pokemon {
 		}
 		return ans;
 	}
+
+	/**
+	 * represents String of pokemon
+	 * @return string of pokemon
+	 */
 	public String toString() {return "F:{v="+_value+", t="+_type+"}";}
 
 	/**
-	 *
+	 * gives the edge of that pokemon
 	 * @return pokemon edge he is standing on
 	 */
 	public edge_data get_edge() {
@@ -57,14 +65,14 @@ public class CL_Pokemon {
 
 	/**
 	 * set edge to pokemon where he will stand
-	 * @param _edge
+	 * @param _edge set the edge the pokemon sits on
 	 */
 	public void set_edge(edge_data _edge) {
 		this._edge = _edge;
 	}
 
 	/**
-	 *
+	 * gives the location of the pokemon
 	 * @return pokemons location
 	 */
 	public Point3D getLocation() {
@@ -72,20 +80,20 @@ public class CL_Pokemon {
 	}
 
 	/**
-	 *
+	 * gives the type of the pokemon
 	 * @return pokemons type
 	 */
 	public int getType() {return _type;}
 //	public double getSpeed() {return _speed;}
 
 	/**
-	 *
+	 * gives the value of the pokemon
 	 * @return pokemons value
 	 */
 	public double getValue() {return _value;}
 
 	/**
-	 *
+	 * gives the minimum distance to that pokemon
 	 * @return minimal distance to the pokemon
 	 */
 	public double getMin_dist() {
@@ -94,14 +102,17 @@ public class CL_Pokemon {
 
 	/**
 	 * set minimale distance to the pokemon
-	 * @param mid_dist
+	 * @param mid_dist set the minimum distance
 	 */
 	public void setMin_dist(double mid_dist) {
 		this.min_dist = mid_dist;
 	}
 
 	@Override
-	/** checking if  obj is pokemon **/
+	/**
+	 * @param obj test equality
+	 * @return if they are equal
+	 */
 	public boolean equals(Object obj) {
 		if(obj instanceof CL_Pokemon)
 		{

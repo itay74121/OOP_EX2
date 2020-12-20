@@ -19,6 +19,11 @@ public class AgentCommander implements  Runnable {
     private DWGraph_DS graph; // graph object
     private game_service game;// game object
     private ArrayList<Thread> agentsthreads; // array of all agents threads
+
+    /**
+     * Creates a commander
+     * @param g game service object
+     */
     public AgentCommander(game_service g)
     {
         game = g; // init game
@@ -47,16 +52,16 @@ public class AgentCommander implements  Runnable {
             @Override
             public int compare(CL_Pokemon o1, CL_Pokemon o2) { //sort according to value
                 if (o1.getValue()>o2.getValue())
-                    return 1;
+                    return -1;
                 if(o1.getValue()==o2.getValue())
                     return 0;
                 else
-                    return -1;
+                    return 1;
             }
         });
         for (int i =0;i<a;i++) // put the agents on the map of the server
         {
-            game.addAgent(pokemons.get(i).get_edge().getSrc());
+            game.addAgent(pokemons.get(i%a).get_edge().getSrc());
         }
         for (CL_Agent agent: agents) // create an agent thread for every thread
         {
@@ -93,6 +98,11 @@ public class AgentCommander implements  Runnable {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+//            try {
+//                Thread.sleep(1000/30);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
         for(Thread t: agentsthreads) // join all of the agents threads
         {
@@ -107,7 +117,7 @@ public class AgentCommander implements  Runnable {
 
     /**
      * This method creates the agents and gives them the game object and the commander
-     * @param agents
+     * @param agents number of agents
      */
     public void spawn(int agents)
     {
@@ -133,10 +143,20 @@ public class AgentCommander implements  Runnable {
             }
         }
     }
+
+    /**
+     *
+     * @return the Pokemon's arraylist
+     */
     public ArrayList<CL_Pokemon> getPokemons()
     {
         return pokemons;
     }
+
+    /**
+     * gives the sum of values of all agents
+     * @return sum of values of agents
+     */
     public int sum()
     {
         int s = 0;
@@ -144,6 +164,11 @@ public class AgentCommander implements  Runnable {
             s+=a.getValue();
         return s;
     }
+
+    /**
+     * get the agents list
+     * @return agents list
+     */
     public ArrayList<CL_Agent> getAgents()
     {
         return this.agents;

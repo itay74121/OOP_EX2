@@ -5,6 +5,9 @@ import api.game_service;
 
 import java.util.concurrent.locks.Lock;
 
+/**
+ * This is the main program where we run it.
+ */
 public class Ex2
 {
     private MyFrame myFrame;
@@ -39,7 +42,7 @@ public class Ex2
                 o.init(log);
             }
             game_service g = Game_Server_Ex2.getServer(o.sharedLevelBuffer.level);// get level that the user wanted
-            //g.login(Long.parseLong(o.sharedLevelBuffer.id));
+            g.login(Long.parseLong(o.sharedLevelBuffer.id));
             o.a = new AgentCommander(g); // create an agent commander
             o.myFrame.setGame(g); // set g as game of nyframe
             o.game = g; // set game
@@ -54,7 +57,7 @@ public class Ex2
                         g.move(); // call move
                         try {
                             // doing only 10 moves a second gets less points in the end though
-                            Thread.sleep(1000/10); // 10 moves for a second
+                            Thread.sleep(1000/10); // 10 moves for a second cause pdf said so...
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -88,6 +91,7 @@ public class Ex2
 
     /**
      * This function init the the different screens
+     * @param log the log
      */
     public  void init(String log)
     {

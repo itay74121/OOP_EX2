@@ -19,15 +19,15 @@ public interface directed_weighted_graph {
 	/**
 	 * returns the data of the edge (src,dest), null if none.
 	 * Note: this method should run in O(1) time.
-	 * @param src
-	 * @param dest
-	 * @return
+	 * @param src - source node
+	 * @param dest - destination node
+	 * @return the edge which is the src and dest
 	 */
 	public edge_data getEdge(int src, int dest);
 	/**
 	 * adds a new node to the graph with the given node_data.
 	 * Note: this method should run in O(1) time.
-	 * @param n
+	 * @param n node_data obejct
 	 */
 	public void addNode(node_data n);
 /**
@@ -42,7 +42,7 @@ public interface directed_weighted_graph {
 	 * This method returns a pointer (shallow copy) for the
 	 * collection representing all the nodes in the graph. 
 	 * Note: this method should run in O(1) time.
-	 * @return Collection<node_data>
+	 * @return Collection of type node_data
 	 */
 	public Collection<node_data> getV();
 	/**
@@ -50,7 +50,8 @@ public interface directed_weighted_graph {
 	 * collection representing all the edges getting out of 
 	 * the given node (all the edges starting (source) at the given node). 
 	 * Note: this method should run in O(k) time, k being the collection size.
-	 * @return Collection<edge_data>
+	 * @param node_id key of node
+	 * @return Collection of type edge_data
 	 */
 	public Collection<edge_data> getE(int node_id);
 	/**

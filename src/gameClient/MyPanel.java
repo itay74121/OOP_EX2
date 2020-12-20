@@ -29,8 +29,8 @@ public class MyPanel extends JPanel
 
     /**
      * create the panel
-     * @param fractionX
-     * @param fractionY
+     * @param fractionX ratio x
+     * @param fractionY ratio y
      */
     public MyPanel(double fractionX,double fractionY)
     {
@@ -50,6 +50,7 @@ public class MyPanel extends JPanel
     @Override
     /**
      * draw the graph with the pokemons and agents
+     * @param g Graphics object
      */
     public void paint(Graphics g)
     {
@@ -130,10 +131,10 @@ public class MyPanel extends JPanel
 
     /**
      * method to update the panel with new information
-     * @param g
-     * @param pokemons
-     * @param agents
-     * @param time
+     * @param g graph
+     * @param pokemons pokemons list
+     * @param agents agents list
+     * @param time time for the game
      */
     public void updatePanel(DWGraph_DS g, ArrayList<CL_Pokemon>pokemons, ArrayList<CL_Agent> agents, long time)
     {
@@ -144,25 +145,33 @@ public class MyPanel extends JPanel
         this.repaint(); // repaint the panel
     }
 
+    /**
+     * get the fraction
+     * @return ratio x
+     */
     public double getFractionX() {
         return fractionX;
     }
 
     /**
      * set the X size of the frame
-     * @param fractionX
+     * @param fractionX ratio x
      */
     public void setFractionX(double fractionX) {
         this.fractionX = fractionX;
     }
 
+    /**
+     * get the ratio y
+     * @return ratio y
+     */
     public double getFractionY() {
         return fractionY;
     }
 
     /**
      * set the Y size of the frame
-     * @param fractionY
+     * @param fractionY ratio y
      */
     public void setFractionY(double fractionY) {
         this.fractionY = fractionY;
@@ -170,10 +179,8 @@ public class MyPanel extends JPanel
 
     /**
      * if the size of the frame changed the function changing the graph size
-     * @param w
-     * @param h
      */
-    public void update_xr_yr(int w,int h)
+    public void update_xr_yr()
     {
         xr = new Range(120,this.getWidth()-120);
         yr = new Range(80,this.getHeight()-100);

@@ -18,6 +18,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the main frame for the gui.
+ */
 public class MyFrame extends JFrame implements Runnable,ActionListener
 {
     private MyPanel panel;
@@ -37,6 +40,11 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
     private JMenuItem exitItem;
     private String log;
 
+    /**
+     * constructor
+     * @param fractionX ratio on screen
+     * @param fractionY ratio on screen
+     */
     public MyFrame(double fractionX,double fractionY)
     {
         super(); //create the frame
@@ -98,7 +106,7 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
             @Override
             public void componentResized(ComponentEvent e) { // resize the screen code and everything in it
                 panel.setBounds(5,20,getWidth(),getHeight()); // set the panel new bounds
-                panel.update_xr_yr(getWidth(),getHeight()); // update the xr and yr of the panel
+                panel.update_xr_yr(); // update the xr and yr of the panel
                 gobackbutton.setBounds(getWidth()-100,0,100,30); // set the bounds of the go back pnael
                 panel.repaint(); // repaint the panel
             }
@@ -107,10 +115,10 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
 
     /**
      * updating the frame information
-     * @param jgraph
-     * @param jpokemon
-     * @param jagent
-     * @param time
+     * @param jgraph string json
+     * @param jpokemon string pokemons
+     * @param jagent list of agents
+     * @param time numebr of time
      */
     public void updateFrame (String jgraph, String jpokemon, List<CL_Agent> jagent, long time)
     {
@@ -165,19 +173,27 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
         }
     }
 
+    /**
+     * get the ratio x
+     * @return ratio x
+     */
     public double getFractionX() {
         return fractionX;
     }
 
     /**
      * set X size of the graph
-     * @param fractionX
+     * @param fractionX ratio x
      */
 
     public void setFractionX(double fractionX) {
         this.fractionX = fractionX;
     }
 
+    /**
+     * get the fraction y
+     * @return ratio y
+     */
     public double getFractionY() {
         return fractionY;
     }
@@ -201,6 +217,10 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
         setTitle(g.toString());
     }
 
+    /**
+     * action performed
+     * @param e Event action
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -240,10 +260,18 @@ public class MyFrame extends JFrame implements Runnable,ActionListener
         }
     }
 
+    /**
+     * get the log
+     * @return the log
+     */
     public String getLog() {
         return log;
     }
 
+    /**
+     * set the log
+     * @param log the log
+     */
     public void setLog(String log) {
         this.log = log;
     }

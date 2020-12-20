@@ -40,7 +40,7 @@ public class Arena {
 
 	/**
 	 * set pokemons list
-	 * @param f
+	 * @param f pokemon list
 	 */
 	public void setPokemons(List<CL_Pokemon> f) {
 		this._pokemons = f;
@@ -48,7 +48,7 @@ public class Arena {
 
 	/**
 	 * set agents list
-	 * @param f
+	 * @param f agents list
 	 */
 	public void setAgents(List<CL_Agent> f) {
 		this._agents = f;
@@ -56,7 +56,7 @@ public class Arena {
 
 	/**
 	 * set graph
-	 * @param g
+	 * @param g graph object
 	 */
 	public void setGraph(directed_weighted_graph g) {this._gg =g;}//init();}
 	private void init( ) {
@@ -82,7 +82,7 @@ public class Arena {
 
 	/**
 	 * return the graph
-	 * @return
+	 * @return the graph
 	 */
 	public directed_weighted_graph getGraph() {
 		return _gg;
@@ -90,7 +90,7 @@ public class Arena {
 
 	/**
 	 * return array list of pokemons converted from json
-	 * @param fs
+	 * @param fs json of pokemons from server
 	 * @return array list of pokemons converted from json
 	 */
 	public static ArrayList<CL_Pokemon> json2Pokemons(String fs) {
@@ -115,8 +115,8 @@ public class Arena {
 
 	/**
 	 * updating pokemons edge he is standing on
-	 * @param fr
-	 * @param g
+	 * @param fr pokemon object
+	 * @param g graph object
 	 */
 	public static void updateEdge(CL_Pokemon fr, directed_weighted_graph g) {
 		//	oop_edge_data ans = null;
@@ -134,9 +134,9 @@ public class Arena {
 
 	/**
 	 * return if the pokemon standing on specific edge
-	 * @param p
-	 * @param src
-	 * @param dest
+	 * @param p location
+	 * @param src location of src
+	 * @param dest location of dest
 	 * @return if the pokemon standing on specific edge
 	 */
 	private static boolean isOnEdge(geo_location p, geo_location src, geo_location dest ) {
@@ -150,10 +150,10 @@ public class Arena {
 
 	/**
 	 * return if the pokemon standing on specific edge
-	 * @param p
-	 * @param s
-	 * @param d
-	 * @param g
+	 * @param p location of pokemon
+	 * @param s key of src
+	 * @param d key of dest
+	 * @param g graph
 	 * @return if the pokemon standing on specific edge
 	 */
 	private static boolean isOnEdge(geo_location p, int s, int d, directed_weighted_graph g) {
@@ -164,10 +164,10 @@ public class Arena {
 
 	/**
 	 * return if the pokemon standing on specific edge
-	 * @param p
-	 * @param e
-	 * @param type
-	 * @param g
+	 * @param p location of pokemon
+	 * @param e edge
+	 * @param type type of pokemon
+	 * @param g graph
 	 * @return if the pokemon standing on specific edge
 	 */
 	private static boolean isOnEdge(geo_location p, edge_data e, int type, directed_weighted_graph g) {
@@ -180,7 +180,7 @@ public class Arena {
 
 	/**
 	 *	Gets the physical range of the plane on which the graph exists
-	 * @param g
+	 * @param g graph
 	 * @return
 	 */
 	private static Range2D GraphRange(directed_weighted_graph g)
@@ -209,8 +209,8 @@ public class Arena {
 
 	/**
 	 * This function converts world to frame on 2d plane using the GraphRange
-	 * @param g
-	 * @param frame
+	 * @param g graph
+	 * @param frame Range of frame
 	 * @return
 	 */
 	public static Range2Range w2f(directed_weighted_graph g, Range2D frame)

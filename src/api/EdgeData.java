@@ -1,5 +1,8 @@
 package api;
 
+/**
+ * Class Represents a weighted and directed edge between two nodes.
+ */
 public class EdgeData implements edge_data {
     private int src; // key of source node
     private int dest; // key of destanation node
@@ -9,9 +12,9 @@ public class EdgeData implements edge_data {
 
     /**
      *  A constructor for the class that takes src dest and weight.
-     * @param src
-     * @param dest
-     * @param weight
+     * @param src key of src
+     * @param dest key of dest
+     * @param weight the weight of that edge
      */
     public EdgeData(int src,int dest,double weight)
     {
@@ -20,11 +23,11 @@ public class EdgeData implements edge_data {
 
     /**
      * The complete constructor for this class taking input for all the field.
-     * @param src
-     * @param dest
-     * @param weight
-     * @param tag
-     * @param info
+     * @param src key of src
+     * @param dest key of dest
+     * @param weight weight of edge
+     * @param tag tag for that edge
+     * @param info String info about that edge
      */
     public EdgeData(int src, int dest,double weight, int tag, String info)
     {
@@ -38,7 +41,7 @@ public class EdgeData implements edge_data {
 
     /**
      * Copy constructor taking another edge and copying it.
-     * @param other
+     * @param other another edge to deep copy from
      */
     public EdgeData(EdgeData other)
     {
@@ -47,8 +50,8 @@ public class EdgeData implements edge_data {
 
     /**
      * Copy constructor that changes just the weight of the edge .
-     * @param other
-     * @param weight
+     * @param other another edge
+     * @param weight number of weight
      */
     public EdgeData(EdgeData other,double weight)
     {
@@ -56,42 +59,70 @@ public class EdgeData implements edge_data {
 
     }
 
+    /**
+     * get the src
+     * @return return key of src
+     */
     @Override
     public int getSrc()
     {
         return src;
     }
 
+    /**
+     * get the dest
+     * @return the key of the dest
+     */
     @Override
     public int getDest()
     {
         return dest;
     }
 
+    /**
+     * get the weight
+     * @return the weight of this edge
+     */
     @Override
     public double getWeight()
     {
         return weight;
     }
 
+    /**
+     * get the info
+     * @return the info of that edge
+     */
     @Override
     public String getInfo()
     {
         return info;
     }
 
+    /**
+     * set the info
+     * @param s info to set
+     */
     @Override
     public void setInfo(String s)
     {
         info = s;
     }
 
+    /**
+     * get the tag of this edge
+     * @return the tag of this edge
+     */
     @Override
     public int getTag()
     {
         return tag;
     }
 
+    /**
+     * set the tag for this edge
+     * @param t - the new value of the tag
+     */
     @Override
     public void setTag(int t)
     {
@@ -100,8 +131,8 @@ public class EdgeData implements edge_data {
 
     /**
      * Override the equals methode.
-     * @param obj
-     * @return
+     * @param obj object to test equality
+     * @return true if equal and false if not
      */
     @Override
     public boolean equals(Object obj) {
@@ -123,6 +154,10 @@ public class EdgeData implements edge_data {
         private int src; // taking source
         private double w; // taking weight
         private int dest; // taking destination
+
+        /**
+         * default constructor
+         */
         public WrapEdgeData()
         {
             // set them right form the outer class of that object

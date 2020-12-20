@@ -5,6 +5,9 @@ package api;
 
 import java.util.*;
 
+/**
+ * This class describes a logical node in a graph.
+ */
 public class NodeData implements node_data,Comparator<NodeData>
 {
     private int key; // unchangeable key of the node
@@ -19,7 +22,7 @@ public class NodeData implements node_data,Comparator<NodeData>
     /**
      *  A contructor to the node class that takes a wrapNodeData instance , and builds back a
      *  node from it.
-     * @param wrapNodeData
+     * @param wrapNodeData wrapper of node class
      */
     public NodeData(WrapNodeData wrapNodeData)
     {
@@ -41,8 +44,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * this constructor needs only a key and a weight
-     * @param key
-     * @param weight
+     * @param key key of node
+     * @param weight weight for that node
      */
     public NodeData(int key,double weight)
     {
@@ -51,11 +54,11 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      *  This is the full constructor that takes everything that a node should have
-     * @param key
-     * @param tag
-     * @param weight
-     * @param info
-     * @param location
+     * @param key key of node
+     * @param tag tag for that node
+     * @param weight weight for that node
+     * @param info info for that node
+     * @param location location for that node
      */
     public NodeData(int key, int tag, double weight,String info, GeoLocation location)
     {
@@ -120,8 +123,8 @@ public class NodeData implements node_data,Comparator<NodeData>
     }
 
     /**
-     * simply retrns the info of that node
-     * @return
+     * simply returns the info of that node
+     * @return return info for that node
      */
     @Override
     public String getInfo() {
@@ -130,7 +133,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * sets the info of that stirng
-     * @param s
+     * @param s String of info for that node
      */
     @Override
     public void setInfo(String s)
@@ -140,7 +143,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * simply gets the tag of that node
-     * @return
+     * @return the tag of that node
      */
     @Override
     public int getTag() {
@@ -159,7 +162,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * simply set the key of that node
-     * @param key
+     * @param key set the key of that node
      */
     private void setKey(int key) {
         this.key = key;
@@ -168,7 +171,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * ask if two nodes are neighbors.
-     * @param node
+     * @param node another node
      * @return if two nodes are adjacent that means that there is an edge from one of them to the other.
      */
     public boolean hasNi(NodeData node)
@@ -177,8 +180,8 @@ public class NodeData implements node_data,Comparator<NodeData>
     }
     /**
      * ask if there is an edge from this node to the other node.
-     * @param node
-     * @return
+     * @param node another node
+     * @return true if there is an edge between them false otherwise
      */
     public boolean hasEdge(NodeData node)
     {
@@ -187,8 +190,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Takes another node and create an edge between them with desired weight
-     * @param other
-     * @param weight
+     * @param other another node
+     * @param weight weight for the edge
      * @return
      */
     public boolean addNi(NodeData other,double weight)
@@ -218,8 +221,8 @@ public class NodeData implements node_data,Comparator<NodeData>
     //todo removeNi_complete
 
     /**
-     * Remove connection completley between two nodes
-     * @param node
+     * Remove connection completely between two nodes
+     * @param node another node
      * @return the amount of connection that were removed
      */
     public int removeNi_complete(NodeData node)
@@ -250,8 +253,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Remove a edge in one way from this -> other
-     * @param node
-     * @return
+     * @param node another node
+     * @return true if successfully removed way
      */
     public boolean removeNi_oneway(NodeData node)
     {
@@ -271,7 +274,8 @@ public class NodeData implements node_data,Comparator<NodeData>
     }
     /**
      * removeNi_otherway this<-other
-     * @node
+     * @node another node
+     * @return true if successfully removed way
       */
     public boolean removeNi_otherway(NodeData node)
     {
@@ -292,8 +296,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * return the weight of an edge from this to other
-     * @param node
-     * @return
+     * @param node another node
+     * @return the weight between them
      */
     public double getWeight(NodeData node)
     {
@@ -305,8 +309,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Get the edge between two nodes
-     * @param node
-     * @return
+     * @param node another node
+     * @return the edge between them
      */
     public EdgeData getEdge(NodeData node)
     {
@@ -315,8 +319,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Get the edge between nodes using the key alone
-     * @param key
-     * @return
+     * @param key key of the other node
+     * @return edge between them
      */
     public EdgeData getEdge(int key)
     {
@@ -325,7 +329,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Get the neighbors hashmap
-     * @return
+     * @return neighbors hashmap
      */
     public HashMap<Integer,NodeData> getNi()
     {
@@ -334,7 +338,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * create an array list of all the shallow copies to the neighbors and return it
-     * @return
+     * @return copy if neighbors
      */
     public ArrayList<NodeData> copyOfNodes()
     {
@@ -348,7 +352,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * get the neighbors edges hashmap
-     * @return
+     * @return hashmap of edges
      */
     public HashMap<Integer,EdgeData> getNiEdges()
     {
@@ -357,9 +361,9 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * Compare the weight of two nodes
-     * @param o1
-     * @param o2
-     * @return
+     * @param o1 node 1
+     * @param o2 node 2
+     * @return comparison between their weights
      */
     @Override
     public int compare(NodeData o1, NodeData o2)
@@ -369,8 +373,8 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * override the equals function but for nodes
-     * @param obj
-     * @return
+     * @param obj another object
+     * @return if they are equal or not
      */
     @Override
     public boolean equals(Object obj) {
@@ -394,7 +398,7 @@ public class NodeData implements node_data,Comparator<NodeData>
 
     /**
      * override toString 
-     * @return
+     * @return representation of node
      */
     public String toString()
     {
@@ -408,6 +412,10 @@ public class NodeData implements node_data,Comparator<NodeData>
     {
         private int id;
         private String pos;
+
+        /**
+         * default constructor
+         */
         public WrapNodeData(){
             id = NodeData.this.key;
             if (location!=null)

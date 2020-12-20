@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/**
+ * This class Represents a Weighted directed graph.
+ */
 public class DWGraph_DS implements directed_weighted_graph
 {
     private HashMap<Integer, node_data> nodes; // hashmap from keys to nodes
@@ -11,7 +14,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * A copy constructor from the wrap class of the graph
-     * @param wrapDWGraph_ds
+     * @param wrapDWGraph_ds wrapper graph object
      */
     public DWGraph_DS(WrapDWGraph_DS wrapDWGraph_ds)
     {
@@ -37,7 +40,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * A copy constructor taking another graph and deep copying it
-     * @param g
+     * @param g graph object to deep copy from
      */
     public DWGraph_DS( DWGraph_DS g)
     {
@@ -61,8 +64,8 @@ public class DWGraph_DS implements directed_weighted_graph
     /**
      * A constructor using a dummy var to diffrent it from the regular constructor
      * This constructor is creating the Transpose of a graph G.
-     * @param g
-     * @param dummyvar
+     * @param g graph object
+     * @param dummyvar dummy variable for transpose graph
      */
     public DWGraph_DS(DWGraph_DS g, boolean dummyvar )
     {
@@ -85,7 +88,7 @@ public class DWGraph_DS implements directed_weighted_graph
     /**
      * Function to get node_data with key from the nodes hashmap
      * @param key - the node_id
-     * @return
+     * @return the node
      */
     @Override
     public node_data getNode(int key)
@@ -95,9 +98,9 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * function to get an edge between two nodes with src and dest keys.
-     * @param src
-     * @param dest
-     * @return
+     * @param src key of src
+     * @param dest key of dest
+     * @return an edge
      */
     @Override
     public edge_data getEdge(int src, int dest)
@@ -108,7 +111,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * function to add a node to the graph using node_data object
-     * @param n
+     * @param n the node to add
      */
     @Override
     public void addNode(node_data n)
@@ -137,7 +140,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * Get a shallow copy to an array of vertices
-     * @return
+     * @return collection of nodes
      */
     @Override
     public Collection<node_data> getV()
@@ -147,8 +150,8 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * get a copy array to shallow copies of Edges of specified node with key.
-     * @param node_id
-     * @return
+     * @param node_id key of node
+     * @return collection of edges that go out of src
      */
     @Override
     public Collection<edge_data> getE(int node_id)
@@ -166,7 +169,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * a function to remove a node from the graph adn all of it's connection
-     * @param key
+     * @param key key of node
      * @return the object of that node
      */
     @Override
@@ -186,8 +189,8 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * Remove an edge between two nodes
-     * @param src
-     * @param dest
+     * @param src key of src
+     * @param dest key of dest
      * @return return back that edge
      */
     @Override
@@ -212,6 +215,7 @@ public class DWGraph_DS implements directed_weighted_graph
     }
 
     /**
+     * gives the edge size
      * @return the amount of edges that there is int the graph
      */
     @Override
@@ -225,6 +229,10 @@ public class DWGraph_DS implements directed_weighted_graph
         return s; // return the sum of edges
     }
 
+    /**
+     * Mode count
+     * @return the modification count
+     */
     @Override
     public int getMC()
     {
@@ -233,8 +241,8 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      *
-     * @param obj
-     * @return
+     * @param obj object to test equality to
+     * @return if the object is equal or not
      */
     @Override
     public boolean equals(Object obj)
@@ -263,7 +271,7 @@ public class DWGraph_DS implements directed_weighted_graph
 
     /**
      * Override the toString function
-     * @return
+     * @return string representation  of the graph
      */
     public String toString()
     {

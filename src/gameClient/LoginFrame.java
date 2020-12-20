@@ -12,6 +12,9 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * This the class of the login screen, this is where the user input an id and a desired level.
+ */
 public class LoginFrame extends JFrame implements Runnable, ActionListener
 {
     private Dimension screen_size; // dimensions of the screen
@@ -34,6 +37,12 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
     private JMenuItem exitItem;
     private String log;
 
+    /**
+     * Constructor for frame
+     * @param X ratio on screen
+     * @param Y ratio on screen
+     * @param sharedLevelBuffer to put the level and id in it.
+     */
     public LoginFrame(double X,double Y,Ex2.SharedLevelBuffer sharedLevelBuffer) {
         super();
         this.sharedLevelBuffer = sharedLevelBuffer;
@@ -139,6 +148,10 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
         }
     }
 
+    /**
+     * simulate if something happens
+     * @param e event action
+     */
     @Override
     public void actionPerformed(ActionEvent e)
     {
@@ -204,10 +217,18 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
 
     }
 
+    /**
+     * get the log
+     * @return the log
+     */
     public String getLog() {
         return log;
     }
 
+    /**
+     * Set the log
+     * @param log String of log
+     */
     public void setLog(String log) {
         this.log = log;
     }
