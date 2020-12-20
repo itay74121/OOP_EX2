@@ -70,7 +70,7 @@ public class LoginFrame extends JFrame implements Runnable, ActionListener
         label_level.setText("LEVEL:");
         label_level.setBounds((int)(0.25*login_framex)-90,(int)(0.5*login_framey)-30,80,24);
         // init the text area
-        textArea_id = new JTextArea("322699125");
+        textArea_id = new JTextArea("");
         textArea_id.setBorder(BorderFactory.createLineBorder(Color.gray,1));
         textArea_id.setFont(f);
         textArea_id.setBounds((int)(0.25*login_framex),(int)(0.5*login_framey)-61,(int)(0.5*login_framex),30);
